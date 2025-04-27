@@ -1,0 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch>=2.2.1
+torchaudio>=2.2.1
+sounddevice>=0.4.6
+scipy>=1.11.4
+numpy>=1.24.3
+librosa>=0.10.1
+pynput>=1.7.6
+openai-whisper>=20231117
+tqdm>=4.65.0
