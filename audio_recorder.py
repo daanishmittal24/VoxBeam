@@ -14,7 +14,7 @@ class AudioRecorder:
         self.recordings_dir.mkdir(exist_ok=True)
 
     def start_recording_async(self):
-        """Start recording audio asynchronously"""
+        """Start recording audio asynchronouslyy"""
         try:
             self.frames = []
             self.recording = True
