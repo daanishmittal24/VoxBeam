@@ -22,7 +22,7 @@ A Python-based voice command system that allows users to control their computer 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/daanishmittal24/voice_to_command.git)
 cd voice-to-command
 ```
 
