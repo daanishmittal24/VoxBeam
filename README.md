@@ -43,11 +43,7 @@ graph LR
     B --> C[🧠 Whisper Model]
     C --> D[🎯 Command Matching]
     D --> E[⚙️ Execution]
-    style A fill:#f9d,stroke:#333
-    style B fill:#afd,stroke:#333
-    style C fill:#ddf,stroke:#333
-    style D fill:#ffa,stroke:#333
-    style E fill:#afa,stroke:#333
+
 ```
 
 ## 📋 Requirements
