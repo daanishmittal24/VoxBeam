@@ -1,14 +1,21 @@
 import subprocess
 import os
 from pynput.keyboard import Key, Controller
+from pynput.mouse import Button, Controller as MouseController
+import webbrowser
 
 class CommandExecutor:
     def __init__(self):
         self.keyboard = Controller()
+        self.mouse = MouseController()
         self.commands = {
             "open notepad": self._open_notepad,
             "open calculator": self._open_calculator,
-            "close window": self._close_window
+            "close window": self._close_window,
+            "click": self._click,
+            "scroll up": self._scroll_up,
+            "scroll down": self._scroll_down,
+            "open google search": self._open_google_search
         }
         print(f"Available commands: {list(self.commands.keys())}")
 
@@ -53,4 +60,40 @@ class CommandExecutor:
             return True
         except Exception as e:
             print(f"Error closing window: {e}")
+            return False
+
+    def _click(self):
+        """Simulate a mouse click."""
+        try:
+            self.mouse.click(Button.left, 1)
+            return True
+        except Exception as e:
+            print(f"Error clicking mouse: {e}")
+            return False
+
+    def _scroll_up(self):
+        """Simulate scrolling up."""
+        try:
+            self.mouse.scroll(0, 2)
+            return True
+        except Exception as e:
+            print(f"Error scrolling up: {e}")
+            return False
+
+    def _scroll_down(self):
+        """Simulate scrolling down."""
+        try:
+            self.mouse.scroll(0, -2)
+            return True
+        except Exception as e:
+            print(f"Error scrolling down: {e}")
+            return False
+
+    def _open_google_search(self):
+        """Open Google search in the default web browser."""
+        try:
+            webbrowser.open('https://www.google.com')
+            return True
+        except Exception as e:
+            print(f"Error opening Google: {e}")
             return False
