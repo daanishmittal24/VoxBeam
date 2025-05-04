@@ -1,298 +1,236 @@
-# Voice Command System
+# Voice Command System 🎤
 
-A sophisticated Python-based voice command system that leverages OpenAI's Whisper model for accurate speech recognition. This system provides a robust GUI for recording, training, and executing voice commands with advanced audio preprocessing and command matching algorithms.
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![CUDA 11.8+](https://img.shields.io/badge/CUDA-11.8+-green.svg)](https://developer.nvidia.com/cuda-downloads)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## System Architecture
+> A sophisticated Python-based voice command system that leverages OpenAI's Whisper model for accurate speech recognition. Transform your voice into actions with advanced preprocessing and intuitive controls.
 
-### 1. Speech Recognition Pipeline
+<p align="center">
+  <img src="docs/images/system-overview.png" alt="Voice Command System Overview" width="600"/>
+</p>
+
+## ✨ Key Features
+
+🎯 **Accurate Speech Recognition**
+- OpenAI Whisper model integration
+- Multi-language support
+- Real-time processing
+
+🎚️ **Advanced Audio Processing**
+- Noise reduction
+- Automatic gain control
+- Silence trimming
+- High-pass filtering
+
+🚀 **High Performance**
+- GPU acceleration
+- Efficient memory management
+- Parallel processing support
+
+🎮 **User-Friendly Interface**
+- Intuitive GUI
+- Real-time feedback
+- Command history
+- Status monitoring
+
+## 🏗️ System Architecture
+
 ```mermaid
 graph LR
-    A[Audio Input] --> B[Preprocessing]
-    B --> C[Whisper Model]
-    C --> D[Command Matching]
-    D --> E[Execution]
+    A[🎤 Audio Input] --> B[⚡ Preprocessing]
+    B --> C[🧠 Whisper Model]
+    C --> D[🎯 Command Matching]
+    D --> E[⚙️ Execution]
+    style A fill:#f9d,stroke:#333
+    style B fill:#afd,stroke:#333
+    style C fill:#ddf,stroke:#333
+    style D fill:#ffa,stroke:#333
+    style E fill:#afa,stroke:#333
 ```
 
-### 2. Core Components
-1. **Audio Processing Module** (`audio_recorder.py`)
-   - Real-time audio capture
-   - Signal preprocessing
-   - Audio file management
+## 📋 Requirements
 
-2. **Command Recognition** (`model_trainer.py`)
-   - Whisper model integration
-   - Command vocabulary management
-   - Multi-level matching algorithm
+### Hardware
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| CPU | Intel i5/AMD Ryzen 5 | Intel i7/AMD Ryzen 7 |
+| RAM | 8GB | 16GB |
+| GPU | NVIDIA (Optional) | NVIDIA RTX Series |
+| Storage | 500MB | 1GB |
+| Microphone | Basic | High-quality |
 
-3. **Command Execution** (`command_executor.py`)
-   - System command interface
-   - Input simulation
-   - Error handling
+### Software
+| Requirement | Version | Purpose |
+|------------|---------|----------|
+| Python | 3.8+ | Runtime |
+| CUDA Toolkit | 11.8+ | GPU Acceleration |
+| Windows | 10/11 | Operating System |
+| Sound Drivers | Latest | Audio Processing |
 
-4. **User Interface** (`gui_modes.py`, `startup.py`)
-   - Recording interface
-   - Training dashboard
-   - Deployment controls
+## 🚀 Quick Start
 
-## Features
+### 1️⃣ Installation
 
-- **Speech Recognition**: Uses OpenAI's Whisper model for accurate speech-to-text conversion
-- **Command Recording**: Record individual or bulk voice commands with audio preprocessing
-- **Command Training**: Train the system to recognize your voice commands
-- **Command Execution**: Execute system commands like opening applications or closing windows
-- **User-friendly GUI**: Three separate interfaces for recording, training, and testing
-- **Audio Preprocessing**: Includes noise reduction, silence trimming, and volume normalization
-- **GPU Acceleration**: CUDA support for faster speech recognition
-
-## Requirements
-
-### Hardware Requirements
-- **CPU**: Intel i5/AMD Ryzen 5 or better
-- **RAM**: 8GB minimum (16GB recommended)
-- **GPU**: NVIDIA GPU with CUDA support (optional)
-- **Storage**: 500MB for base installation
-- **Microphone**: Any decent quality microphone
-
-### Software Requirements
-- **Operating System**: Windows 10/11
-- **Python**: 3.8 or higher
-- **CUDA Toolkit**: 11.8+ (for GPU acceleration)
-- **Sound Drivers**: Updated Windows audio drivers
-
-## Installation Guide
-
-### 1. Environment Setup
-
-1. **Clone Repository**
 ```bash
+# Clone repository
 git clone https://github.com/daanishmittal24/voice_to_command.git
 cd voice_to_command
-```
 
-2. **Create Virtual Environment**
-```bash
+# Create virtual environment
 python -m venv venv
 venv\Scripts\activate
-```
 
-3. **Install Dependencies**
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-4. **Verify CUDA Installation** (if using GPU)
-```bash
-python -c "import torch; print(torch.cuda.is_available())"
-```
+### 2️⃣ Configuration
 
-### 2. Initial Configuration
+1. **Audio Setup** 🎤
+   ```
+   Windows Settings → System → Sound → Input
+   ```
 
-1. **Audio Device Setup**
-   - Open Windows Sound Settings
-   - Select your microphone as default input device
-   - Set input volume to ~70%
+2. **First Run** ⚙️
+   ```bash
+   python startup.py
+   ```
 
-2. **Application Settings**
-   - First run will create necessary directories
-   - Default settings are optimized for most users
-   - Configuration files are created in respective directories
+### 3️⃣ Basic Usage
 
-## Usage Guide
+1. **Record Commands** 📝
+   ```
+   Recording Mode → New Command → Record → Save
+   ```
 
-### 1. Main Application
+2. **Train System** 🧠
+   ```
+   Training Mode → Select Data → Start Training
+   ```
 
-Three ways to run the application:
+3. **Use Commands** 🎯
+   ```
+   Testing Mode → Start Listening → Speak Command
+   ```
 
-1. **Full Interface** (Recommended for first use)
-```bash
-python startup.py
-```
+## 📚 Detailed Documentation
 
-2. **Classic Interface** (All features)
-```bash
-python main.py
-```
+### Command Types
 
-3. **Minimal Interface** (Quick testing)
-```bash
-python minimal_run.py
-```
+| Category | Examples | Description |
+|----------|----------|-------------|
+| System | `open calculator`, `close window` | System operations |
+| Navigation | `scroll up`, `click` | Interface control |
+| Custom | User-defined | Your custom actions |
 
-### 2. Recording Voice Commands
+### Voice Training Tips
 
-#### A. Individual Recording
-1. Select "Recording Mode"
-2. Click "Press and Hold to Record"
-3. Speak your command
-4. Release to stop recording
-5. Enter command text
-6. Click "Save Recording"
+✅ **Do**
+- Record in your normal speaking voice
+- Vary your speaking pace slightly
+- Include background noise variations
+- Record 20+ samples per command
 
-#### B. Bulk Recording (Recommended)
-1. Select "Bulk Recording"
-2. Enter command name
-3. Choose number of samples (20-30 recommended)
-4. Follow the recording prompts
-5. Verify recordings in the list
+❌ **Don't**
+- Speak unnaturally slowly
+- Record in perfect silence only
+- Use inconsistent command phrases
+- Skip the training phase
 
-### 3. Training the System
+## 🔧 Advanced Configuration
 
-1. **Data Preparation**
-   - Ensure you have recorded commands
-   - Recommended 20+ samples per command
-   - Varied voice tones/speeds recommended
-
-2. **Training Process**
-   - Select "Training Mode"
-   - Click "Start Training"
-   - Monitor progress bar
-   - Wait for completion message
-
-3. **Model Validation**
-   - System automatically validates
-   - Check recognition accuracy
-   - Retrain if accuracy is low
-
-### 4. Using Voice Commands
-
-1. **Testing Mode**
-   - Select "Testing/Deployment Mode"
-   - Click "Start Listening"
-   - Speak commands
-   - Monitor recognition results
-
-2. **Production Use**
-   - Use minimal_run.py for regular use
-   - Commands execute automatically
-   - Check status in log window
-
-## Available Commands
-
-Currently supported commands:
-- `open notepad`: Opens Windows Notepad
-- `open calculator`: Opens Windows Calculator
-- `close window`: Closes the active window (Alt+F4)
-
-## Technical Deep Dive
-
-### 1. Audio Processing Pipeline
+### Audio Processing Parameters
 
 ```python
-def _preprocess_audio(self, audio_data):
-    # Remove DC offset
-    audio_data = audio_data - np.mean(audio_data)
-    
-    # Normalize volume
-    audio_data = audio_data / np.max(np.abs(audio_data))
-    
-    # High-pass filter (reduce noise)
-    nyquist = self.sample_rate / 2
-    cutoff = 80  # Hz
-    b, a = signal.butter(4, cutoff / nyquist, btype='highpass')
-    audio_data = signal.filtfilt(b, a, audio_data)
-    
-    # Trim silence
-    threshold = 0.01
-    mask = np.abs(audio_data) > threshold
-    audio_data = audio_data[start:end]
-    
-    return audio_data
+AUDIO_CONFIG = {
+    'sample_rate': 16000,
+    'chunk_size': 1024,
+    'silence_threshold': 0.01,
+    'noise_reduction': True,
+    'high_pass_cutoff': 80  # Hz
+}
 ```
 
-### 2. Command Recognition Algorithm
+### Model Configuration
 
-The system uses a 3-tier matching approach:
-
-1. **Exact Match**
-   - Direct string comparison
-   - Case-insensitive
-   - Highest confidence
-
-2. **Keyword Match**
-   - Key term identification
-   - Ignores common words
-   - Medium confidence
-
-3. **Fuzzy Match**
-   - Partial string matching
-   - Levenshtein distance
-   - Minimum score threshold: 0.5
-
-### 3. Performance Optimization
-
-#### GPU Acceleration
 ```python
-if torch.cuda.is_available():
-    device = torch.device("cuda")
-    model = model.to(device)
-    # Enable mixed precision
-    with torch.cuda.amp.autocast():
-        results = model(inputs)
+MODEL_CONFIG = {
+    'model_size': 'tiny',
+    'language': 'en',
+    'compute_type': 'float16',
+    'num_threads': 4
+}
 ```
 
-#### Memory Management
-- Streaming audio recording
-- Efficient buffer management
-- Automatic cleanup of temporary files
+## 🔍 Troubleshooting
 
-## Project Structure
+<details>
+<summary>🔴 No Audio Input</summary>
 
-```
-voice_to_command/
-├── startup.py           # Main GUI application
-├── model_trainer.py     # Whisper model handler
-├── audio_recorder.py    # Audio recording/processing
-├── command_executor.py  # Command execution logic
-├── command_organizer.py # Data management
-├── gui_modes.py        # GUI implementations
-├── recordings/         # Raw audio storage
-├── command_data/       # Processed commands
-└── trained_models/     # Model checkpoints
-```
+1. Check physical connections
+2. Test microphone in Windows
+3. Verify app permissions
+4. Update audio drivers
+</details>
 
-## Troubleshooting Guide
+<details>
+<summary>🔴 GPU Not Detected</summary>
 
-### Common Issues
+1. Verify CUDA installation
+2. Update NVIDIA drivers
+3. Check `nvidia-smi` output
+4. Confirm PyTorch CUDA build
+</details>
 
-1. **No Audio Input**
-   - Check microphone connections
-   - Verify Windows permissions
-   - Test with Windows Sound settings
+<details>
+<summary>🔴 Poor Recognition</summary>
 
-2. **GPU Not Detected**
-   - Verify CUDA installation
-   - Update GPU drivers
-   - Check `nvidia-smi` output
+1. Reduce background noise
+2. Check microphone quality
+3. Retrain with more samples
+4. Verify audio settings
+</details>
 
-3. **Poor Recognition**
-   - Reduce background noise
-   - Speak clearly and consistently
-   - Re-record training samples
+## 📈 Performance Tips
 
-4. **Command Execution Fails**
-   - Check system permissions
-   - Verify command paths
-   - Check error logs
+- Enable GPU acceleration
+- Use batch processing
+- Optimize audio settings
+- Regular model updates
+- Clean unused recordings
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repository
-2. Create feature branch
-3. Implement changes
-4. Add tests
-5. Submit pull request
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+1. 🍴 Fork the repo
+2. 🌿 Create a branch
+3. 📝 Make changes
+4. ✅ Run tests
+5. 📫 Submit PR
 
-## License
+## 📄 License
 
-MIT License - See [LICENSE](LICENSE) for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- OpenAI Whisper team for the base model
+- OpenAI Whisper team
 - PyTorch community
-- Audio processing libraries:
-  - SoundDevice
-  - SciPy
-  - NumPy
+- SoundDevice contributors
+- SciPy developers
+- NumPy team
+
+## 📞 Support
+
+- 📧 Email: support@voicecommand.com
+- 💬 Discord: [Join our server](https://discord.gg/voicecommand)
+- 📚 [Documentation](https://docs.voicecommand.com)
+- 🐛 [Issue Tracker](https://github.com/yourusername/voice_to_command/issues)
+
+---
+<p align="center">
+Made with ❤️ by the Voice Command System Team
+</p>
