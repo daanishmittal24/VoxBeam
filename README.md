@@ -43,6 +43,8 @@ pip install -r requirements.txt
 ```bash
 python main.py
 python startup.py
+pythin minimal_run.py  # no train just running interface with manual control over commands
+
 ```
 
 2. The main window will open with three modes:
