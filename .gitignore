@@ -33,12 +33,27 @@ ENV/
 
 # Audio files
 recordings/*.wav
+recordings/
 command_data/*/*.wav
-
+*.wav
 
 # Model files
+trained_models/
 trained_models/trained_model/*.safetensors
 trained_models/trained_model/*.bin
+models/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.model
+
+# Large data files
+*.csv
+*.json
+*.jsonl
+*.pickle
+*.pkl
 
 # Misc
 .DS_Store
