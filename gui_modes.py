@@ -11,7 +11,7 @@ from command_executor import CommandExecutor
 class RecordingMode:
     def __init__(self, root, command_organizer):
         self.root = root
-        self.root.title("Voice Command System - Recording Mode")
+        self.root.title("VoxBeam - Recording Mode")
         self.command_organizer = command_organizer
         self.audio_recorder = AudioRecorder()
         self.setup_gui()
@@ -256,7 +256,7 @@ class RecordingMode:
 class TrainingMode:
     def __init__(self, root, model_trainer, command_organizer):
         self.root = root
-        self.root.title("Voice Command System - Training Mode")
+        self.root.title("VoxBeam - Training Mode")
         self.model_trainer = model_trainer
         self.command_organizer = command_organizer
         self.setup_gui()
@@ -357,7 +357,7 @@ class TrainingMode:
 class DeploymentMode:
     def __init__(self, root, model_trainer, command_organizer):
         self.root = root
-        self.root.title("Voice Command System - Testing/Deployment")
+        self.root.title("VoxBeam - Testing/Deployment")
         self.model_trainer = model_trainer
         self.command_organizer = command_organizer
         self.audio_recorder = AudioRecorder()

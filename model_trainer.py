@@ -142,7 +142,7 @@ class ModelTrainer:
             
             # Create a prompt with all available commands
             commands_list = ", ".join(sorted(self.commands))
-            initial_prompt = f"Voice command system. Available commands are: {commands_list}. The spoken command is:"
+            initial_prompt = f"VoxBeam. Available commands are: {commands_list}. The spoken command is:"
             
             # Perform transcription with specific options for command recognition
             result = self.model.transcribe(

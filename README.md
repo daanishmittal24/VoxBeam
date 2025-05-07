@@ -1,139 +1,210 @@
-# Voice Command System
+# 🚀 VoxBeam: Control Your PC with Your Voice! 🎙️💻
 
-A Python-based voice command system that allows users to control their computer using voice commands. The system uses OpenAI's Whisper model for speech recognition and provides a user-friendly GUI for recording, training, and executing voice commands.
+<!-- SHOWOFF: VoxBeam Demo Animation -->
+<!-- ![VoxBeam Demo Animation](link_to_voxbeam_demo.gif) -->
 
-## Features
+Welcome to **VoxBeam** – the next-generation, AI-powered voice command platform for your computer. VoxBeam transforms your spoken words into powerful actions, letting you control your PC, launch apps, and automate workflows hands-free.
 
-- **Speech Recognition**: Uses OpenAI's Whisper model for accurate speech-to-text conversion
-- **Command Recording**: Record individual or bulk voice commands with audio preprocessing
-- **Command Training**: Train the system to recognize your voice commands
-- **Command Execution**: Execute system commands like opening applications or closing windows
-- **User-friendly GUI**: Three separate interfaces for recording, training, and testing
-- **Audio Preprocessing**: Includes noise reduction, silence trimming, and volume normalization
-- **GPU Acceleration**: CUDA support for faster speech recognition
+> **Experience the future of productivity.**
 
-## Requirements
+---
 
-- Python 3.8 or higher
-- NVIDIA GPU with CUDA support (optional but recommended)
-- Windows OS (for the current command set)
+## ✨ VoxBeam Highlights
 
-## Installation
+- 🧠 **Powered by OpenAI Whisper**: Industry-leading speech recognition for unmatched accuracy.
+- 🎤 **Effortless Command Recording**: Record single or multiple samples for robust, personalized training.
+- 🦾 **Synthetic Data Augmentation**: VoxBeam automatically creates pitch, speed, and noise variations for ultra-resilient models.
+- ⚡ **Real-Time Execution**: Instant command recognition and action.
+- 🖥️ **Intuitive GUI**: Simple, modern interface for recording, training, and testing.
+- 🔊 **Advanced Audio Pipeline**: Noise reduction, silence trimming, normalization, and more.
+- 🚀 **GPU-Accelerated**: Whisper runs lightning-fast on CUDA GPUs (CPU fallback supported).
+- 🛠️ **Extensible**: Add your own commands and actions with ease.
 
-1. Clone the repository:
-```bash
-git clone https://github.com/daanishmittal24/voice_to_command.git
-cd voice-to-command
+---
+
+## 🎬 SHOWOFF: VoxBeam in Action
+
+- **VoxBeam in Action:**
+  <!-- ![VoxBeam Full Demo](link_to_full_demo.gif) -->
+- **Recording Mode:**
+  <!-- ![Recording Mode Animation](link_to_recording_mode.gif) -->
+- **Training Mode:**
+  <!-- ![Training Mode Animation](link_to_training_mode.gif) -->
+- **Testing Mode:**
+  <!-- ![Testing Mode Animation](link_to_testing_mode.gif) -->
+
+---
+
+## 🤩 What Makes VoxBeam Unique?
+
+- **Personalized AI**: Trains on your voice and your commands.
+- **Synthetic Data Magic**: Augments your data for real-world robustness.
+- **Multi-Stage Matching**: Exact, keyword, and fuzzy logic for reliable recognition.
+- **Offline-First**: All processing is local after setup.
+- **Open Source & Hackable**: Build your own automations and integrations.
+
+---
+
+## 🧠 Model & Theory
+
+### Model: OpenAI Whisper
+- **Architecture**: Transformer-based encoder-decoder, trained on 680k hours of multilingual and multitask supervised data.
+- **Default Model**: `base` (can be swapped for `tiny`, `small`, `medium`, `large` for different speed/accuracy tradeoffs).
+- **Input**: 16kHz mono WAV audio.
+- **Output**: Transcribed text, optimized for short command phrases.
+- **Prompt Engineering**: VoxBeam uses a dynamic prompt listing all available commands to bias the model toward your command set.
+
+### Theory: How VoxBeam Recognizes Commands
+1. **Audio Preprocessing**: Cleans and normalizes your voice input for best model performance.
+2. **Data Augmentation**: During training, each sample is synthetically varied (pitch, speed, noise, etc.) to simulate real-world conditions and improve generalization.
+3. **Speech-to-Text**: Whisper transcribes the audio using a custom prompt.
+4. **Command Matching**: VoxBeam uses a 3-stage matching system:
+   - **Exact**: Direct string match.
+   - **Keyword**: Overlap of important words.
+   - **Fuzzy**: Partial/approximate match scoring.
+5. **Action Execution**: If a match is found, the mapped action is triggered.
+
+---
+
+## ⚙️ Configuration & Customization
+
+- **Model Selection**: Change the Whisper model size in `model_trainer.py` for different hardware or accuracy needs.
+- **Augmentation Settings**: Adjust the number and type of augmentations in `audio_augmenter.py`.
+- **Command List**: Add/remove commands by recording new samples and retraining.
+- **Action Mapping**: Map new commands to actions in `command_executor.py`.
+- **Device Selection**: VoxBeam auto-detects CUDA GPU; falls back to CPU if unavailable.
+
+---
+
+## 🔁 Retraining & Transfer Learning
+
+- **Retrain Anytime**: Add new commands or more samples, then retrain via the GUI.
+- **Transfer Learning**: While VoxBeam uses Whisper as a frozen base, you can extend it for full transfer learning (fine-tuning Whisper on your own data) with advanced scripts and more compute.
+- **Augmentation for Retraining**: Each retrain run generates new synthetic data, making the model more robust over time.
+- **Model Checkpoints**: (Planned) Save and load custom fine-tuned models for different users or environments.
+
+---
+
+## 🖥️ GPU & Performance
+
+- **CUDA Acceleration**: If an NVIDIA GPU is detected, all Whisper inference and training run on GPU for massive speedups.
+- **CPU Fallback**: Runs on CPU if no GPU is available (slower, but works everywhere).
+- **Batch Processing**: Training and augmentation are optimized for parallelism.
+- **Progress Feedback**: GUI shows real-time progress bars and status updates during heavy operations.
+
+---
+
+## 🛠️ System Architecture
+
+1. 🎙️ **Voice Input** → 2. 🧹 **Preprocessing** → 3. 🧬 **Augmentation** → 4. 🤖 **Whisper STT** → 5. 🧩 **Command Matching** → 6. ⚙️ **Action Execution**
+
+<!-- SHOWOFF: Add a system diagram GIF or image here -->
+
+---
+
+## 📋 Requirements
+
+- **Python** 3.8+
+- **Windows** (other OS: core features portable)
+- **Microphone**
+- **NVIDIA GPU (CUDA)** (optional, for speed)
+
+---
+
+## ⚡ Quickstart
+
+1. **Clone VoxBeam:**
+   ```bash
+   git clone https://github.com/daanishmittal24/voxbeam.git
+   cd voxbeam
+   ```
+2. **Create a Virtual Environment:**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate  # or source venv/bin/activate
+   ```
+3. **Install Requirements:**
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+4. **Launch VoxBeam:**
+   ```bash
+   python startup.py
+   ```
+
+---
+
+## 🕹️ Modes & Usage
+
+### 🎙️ Recording Mode
+- Record commands (single/bulk)
+- Organize and review samples
+- **SHOWOFF:** <!-- ![Recording Mode](link_to_recording_mode.gif) -->
+
+### 🧠 Training Mode
+- Train Whisper on your commands
+- Synthetic augmentation for each sample
+- **SHOWOFF:** <!-- ![Training Mode](link_to_training_mode.gif) -->
+
+### 🧪 Testing Mode
+- Test and execute commands live
+- See recognition and action feedback
+- **SHOWOFF:** <!-- ![Testing Mode](link_to_testing_mode.gif) -->
+
+### 🏃 Minimal Run
+- Lightweight interface for quick command execution
+- Accuracy testing tab
+
+---
+
+## 🧬 Technical Deep Dive
+
+- **Audio:** 16kHz mono WAV, DC removal, normalization, high-pass, silence trim, padding
+- **Augmentation:** Pitch, speed, volume, noise, shift, reverb
+- **Recognition:** Whisper (base), prompt engineering, multi-level matching
+- **GUI:** Tkinter, threaded for responsiveness
+- **Config:** All major settings are Python variables for easy hacking
+
+---
+
+## 📂 Project Structure
+
+```
+VoxBeam/
+├── recordings/
+├── command_data/
+├── trained_models/
+├── models/
+├── audio_augmenter.py
+├── ...
 ```
 
-2. Create and activate a virtual environment (recommended):
-```bash
-python -m venv venv
-venv\Scripts\activate
-```
+---
 
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+## 💡 Troubleshooting
+- **No Trained Model?** Run Training Mode after recording.
+- **Low Accuracy?** Record more samples, speak clearly, use augmentation.
+- **CUDA Issues?** Check drivers and PyTorch install.
 
-## Usage
+---
 
-1. Start the application:
-```bash
-python main.py
-python startup.py
-pythin minimal_run.py  # no train just running interface with manual control over commands
+## 🌱 Roadmap
+- Full Whisper fine-tuning
+- Contextual & multi-user profiles
+- Web UI
+- Cross-platform actions
 
-```
+---
 
-2. The main window will open with three modes:
+## 🤝 Contributing
+- Fork, branch, PR – all welcome!
 
-### Recording Mode
-- Record individual voice commands
-- Bulk record multiple samples of the same command
-- View and manage recorded commands
-- Audio preprocessing for better quality
+---
 
-### Training Mode
-- View available training data
-- Train the model on recorded commands
-- Monitor training progress
-- Save trained models
+## 🙏 Credits
+- OpenAI Whisper, PyTorch, Librosa, and all contributors.
 
-### Testing/Deployment Mode
-- Test voice commands in real-time
-- View command recognition results
-- Execute recognized commands
-- Monitor command execution status
+---
 
-## Available Commands
-
-Currently supported commands:
-- `open notepad`: Opens Windows Notepad
-- `open calculator`: Opens Windows Calculator
-- `close window`: Closes the active window (Alt+F4)
-
-## Project Structure
-
-- `startup.py`: Main entry point and GUI initialization
-- `model_trainer.py`: Whisper model management and training
-- `audio_recorder.py`: Audio recording and preprocessing
-- `command_executor.py`: Command execution logic
-- `command_organizer.py`: Command data management
-- `gui_modes.py`: GUI implementation for different modes
-- `recordings/`: Directory for storing recorded audio
-- `command_data/`: Directory for organized command recordings
-- `trained_models/`: Directory for model checkpoints and commands
-
-## Technical Details
-
-### Audio Processing
-- Sample Rate: 16000 Hz
-- Channels: Mono
-- Format: WAV (16-bit)
-- Preprocessing:
-  - DC offset removal
-  - Volume normalization
-  - High-pass filtering (80 Hz cutoff)
-  - Silence trimming
-  - Padding (100ms)
-
-### Speech Recognition
-- Model: OpenAI Whisper (tiny)
-- Features:
-  - Command-specific prompt engineering
-  - Multi-level command matching:
-    1. Exact match
-    2. Keyword match
-    3. Fuzzy match
-  - Temperature control for consistent results
-  - Beam search optimization
-
-### GUI
-- Built with Tkinter
-- Three separate modes:
-  1. Recording interface
-  2. Training interface
-  3. Testing/Deployment interface
-- Real-time feedback
-- Progress monitoring
-- Error handling
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-[Add your license here]
-
-## Acknowledgments
-
-- OpenAI Whisper for speech recognition
-- PyTorch for deep learning suppozrt
-- Libraries used: librosa, sounddevice, pynput
+**VoxBeam: Your voice, your command.**

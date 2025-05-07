@@ -7,7 +7,7 @@ from gui_modes import RecordingMode, TrainingMode, DeploymentMode
 class StartupWindow:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Voice Command System")
+        self.root.title("VoxBeam")
         self.root.geometry("500x400")
         
         self.model_trainer = ModelTrainer()
