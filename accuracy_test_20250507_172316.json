@@ -1,0 +1,122 @@
+{
+  "timestamp": "20250507_172316",
+  "overall_accuracy": 68.88888888888889,
+  "command_accuracy": {
+    "attack": 60.0,
+    "back": 40.0,
+    "click": 60.0,
+    "close window": 80.0,
+    "forward": 80.0,
+    "left": 80.0,
+    "open calculator": 80.0,
+    "open notepad": 60.0,
+    "right": 80.0
+  },
+  "confusion_matrix": {
+    "attack": {
+      "attack": 3,
+      "forward": 1,
+      "right": 1
+    },
+    "back": {
+      "back": 2,
+      "click": 1,
+      "close window": 1,
+      "right": 1
+    },
+    "click": {
+      "click": 3,
+      "forward": 2
+    },
+    "close window": {
+      "close window": 4,
+      "not_recognized": 1
+    },
+    "forward": {
+      "forward": 4,
+      "not_recognized": 1
+    },
+    "left": {
+      "close window": 1,
+      "left": 4
+    },
+    "open calculator": {
+      "open calculator": 4,
+      "open notepad": 1
+    },
+    "open notepad": {
+      "close window": 1,
+      "left": 1,
+      "open notepad": 3
+    },
+    "right": {
+      "left": 1,
+      "right": 4
+    }
+  },
+  "raw_results": {
+    "attack": [
+      "attack",
+      "attack",
+      "attack",
+      "right",
+      "forward"
+    ],
+    "back": [
+      "right",
+      "back",
+      "back",
+      "click",
+      "close window"
+    ],
+    "click": [
+      "click",
+      "click",
+      "click",
+      "forward",
+      "forward"
+    ],
+    "close window": [
+      "close window",
+      "close window",
+      "close window",
+      "close window",
+      null
+    ],
+    "forward": [
+      "forward",
+      "forward",
+      "forward",
+      "forward",
+      null
+    ],
+    "left": [
+      "left",
+      "left",
+      "left",
+      "left",
+      "close window"
+    ],
+    "open calculator": [
+      "open calculator",
+      "open calculator",
+      "open calculator",
+      "open notepad",
+      "open calculator"
+    ],
+    "open notepad": [
+      "open notepad",
+      "open notepad",
+      "open notepad",
+      "close window",
+      "left"
+    ],
+    "right": [
+      "left",
+      "right",
+      "right",
+      "right",
+      "right"
+    ]
+  }
+}

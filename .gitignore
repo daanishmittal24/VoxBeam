@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Audio files
+recordings/*.wav
+command_data/*/*.wav
+
+# Large model files - ignore all these instead of using Git LFS
+models/*.pt
+models/*.safetensors
+trained_models/**/*.safetensors
+trained_models/**/*.bin
+
+# Misc
+.DS_Store
+Thumbs.db
