@@ -89,6 +89,7 @@ Whisper Model Pipeline
 ```
 
 ### Model: OpenAI Whisper
+
 - **Architecture**: Transformer-based encoder-decoder, trained on 680k hours of multilingual and multitask supervised data.
 - **Default Model**: `base` (can be swapped for `tiny`, `small`, `medium`, `large` for different speed/accuracy tradeoffs).
 - **Input**: 16kHz mono WAV audio.
@@ -96,6 +97,7 @@ Whisper Model Pipeline
 - **Prompt Engineering**: VoxBeam uses a dynamic prompt listing all available commands to bias the model toward your command set.
 
 ### Theory: How VoxBeam Recognizes Commands
+
 1. **Audio Preprocessing**: Cleans and normalizes your voice input for best model performance.
 2. **Data Augmentation**: During training, each sample is synthetically varied (pitch, speed, noise, etc.) to simulate real-world conditions and improve generalization.
 3. **Speech-to-Text**: Whisper transcribes the audio using a custom prompt.
@@ -186,21 +188,28 @@ Original Audio → [Pitch Shift] → [Speed Mod] → [Add Noise]
 ## ⚡ Quickstart
 
 1. **Clone VoxBeam:**
+
    ```bash
-   git clone https://github.com/daanishmittal24/voxbeam.git
-   cd voxbeam
+   git clone https://github.com/daanishmittal24/VoxBeam.git
+   cd VoxBeam
    ```
+
 2. **Create a Virtual Environment:**
+
    ```bash
    python -m venv venv
    venv\Scripts\activate  # or source venv/bin/activate
    ```
+
 3. **Install Requirements:**
+
    ```bash
    pip install --upgrade pip
    pip install -r requirements.txt
    ```
+
 4. **Launch VoxBeam:**
+
    ```bash
    python startup.py
    ```
@@ -210,21 +219,25 @@ Original Audio → [Pitch Shift] → [Speed Mod] → [Add Noise]
 ## 🕹️ Modes & Usage
 
 ### 🎙️ Recording Mode
+
 - Record commands (single/bulk)
 - Organize and review samples
 - **SHOWOFF:** <!-- ![Recording Mode](link_to_recording_mode.gif) -->
 
 ### 🧠 Training Mode
+
 - Train Whisper on your commands
 - Synthetic augmentation for each sample
 - **SHOWOFF:** <!-- ![Training Mode](link_to_training_mode.gif) -->
 
 ### 🧪 Testing Mode
+
 - Test and execute commands live
 - See recognition and action feedback
 - **SHOWOFF:** <!-- ![Testing Mode](link_to_testing_mode.gif) -->
 
 ### 🏃 Minimal Run
+
 - Lightweight interface for quick command execution
 - Accuracy testing tab
 
@@ -242,7 +255,7 @@ Original Audio → [Pitch Shift] → [Speed Mod] → [Add Noise]
 
 ## 📂 Project Structure
 
-```
+```text
 VoxBeam/
 ├── recordings/
 ├── command_data/
@@ -272,19 +285,18 @@ Low ACC? → More Samples → Retrain → [End]
 ---
 
 ## 🌱 Roadmap
+
 - Full Whisper fine-tuning
 - Contextual & multi-user profiles
 - Web UI
 - Cross-platform actions
 
----
-
 ## 🤝 Contributing
+
 - Fork, branch, PR – all welcome!
 
----
-
 ## 🙏 Credits
+
 - OpenAI Whisper, PyTorch, Librosa, and all contributors.
 
 ---
