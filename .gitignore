@@ -43,4 +43,3 @@ trained_models/trained_model/*.bin
 # Misc
 .DS_Store
 Thumbs.db
-models/
