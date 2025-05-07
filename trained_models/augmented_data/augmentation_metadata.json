@@ -1,0 +1,17 @@
+{
+  "timestamp": "20250508_011314",
+  "augmentations_per_sample": 3,
+  "original_data_dir": "command_data",
+  "augmented_files_count": {
+    "attack": 75,
+    "back": 60,
+    "click": 60,
+    "close_window": 60,
+    "forward": 75,
+    "left": 60,
+    "open_calculator": 66,
+    "open_notepad": 117,
+    "right": 75
+  },
+  "total_augmented_files": 648
+}

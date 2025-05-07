@@ -44,3 +44,6 @@ trained_models/**/*.bin
 # Misc
 .DS_Store
 Thumbs.db
+
+*.wav
+*.mp3

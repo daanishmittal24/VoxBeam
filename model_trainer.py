@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import json
 from tqdm import tqdm
+from datetime import datetime
+from audio_augmenter import AudioAugmenter, augment_command_data
 
 class ModelTrainer:
     def __init__(self, model_save_dir="trained_models"):
@@ -18,6 +20,9 @@ class ModelTrainer:
         
         # Store available commands
         self.commands = set()
+        
+        # Create augmenter
+        self.augmenter = AudioAugmenter()
 
     def _setup_device(self):
         if not torch.cuda.is_available():
@@ -46,8 +51,9 @@ class ModelTrainer:
             self.current_operation = f"Error loading model: {str(e)}"
             return False
 
-    def train_model(self, command_folders, epochs=30, batch_size=4, learning_rate=1e-4):
-        """Update command vocabulary from command folders"""
+    def train_model(self, command_folders, epochs=30, batch_size=4, learning_rate=1e-4, 
+                   use_augmentation=True, augmentations_per_sample=3):
+        """Update command vocabulary from command folders and generate augmented data if needed"""
         try:
             # Load model if not loaded
             if self.model is None:
@@ -57,17 +63,42 @@ class ModelTrainer:
             # Extract command names
             self.commands = {folder.name.replace('_', ' ').lower() for folder in command_folders}
             
+            # Generate synthetic data with augmentation if enabled
+            if use_augmentation:
+                self.current_operation = "Generating augmented data..."
+                self.training_progress = 0
+                
+                # Create augmented data directory
+                augmented_dir = self.model_save_dir / "augmented_data"
+                
+                # Progress callback function to update training progress
+                def progress_callback(progress, operation_info):
+                    self.training_progress = progress
+                    self.current_operation = operation_info
+                
+                # Generate augmented data
+                augmented_files = augment_command_data(
+                    command_data_dir=str(command_folders[0].parent),
+                    output_dir=str(augmented_dir),
+                    augmentations_per_sample=augmentations_per_sample,
+                    progress_callback=progress_callback
+                )
+                
+                # Log augmentation results
+                total_augmented_files = sum(len(files) for files in augmented_files.values())
+                print(f"Generated {total_augmented_files} augmented audio files")
+            
             # Save commands list
             commands_file = self.model_save_dir / "commands.json"
             with open(commands_file, "w") as f:
                 json.dump(list(self.commands), f)
 
-            self.current_operation = "Commands updated"
+            self.current_operation = "Training completed"
             self.training_progress = 100
             return True
 
         except Exception as e:
-            print(f"Error updating commands: {e}")
+            print(f"Error in training: {e}")
             self.current_operation = f"Error: {str(e)}"
             return False
 
@@ -103,7 +134,7 @@ class ModelTrainer:
                     raise Exception("Failed to load model")
 
             # Convert audio to float32 if needed
-            if audio_data.dtype != np.float32:
+            if (audio_data.dtype != np.float32):
                 audio_data = audio_data.astype(np.float32)
             
             # Normalize audio volume
@@ -194,6 +225,111 @@ class ModelTrainer:
 
         except Exception as e:
             print(f"Transcription error: {e}")
+            return None
+
+    def evaluate_model_accuracy(self, test_data_dir=None, save_results=True):
+        """Evaluate model accuracy on test data"""
+        try:
+            if self.model is None:
+                if not self.load_trained_model():
+                    return None
+                    
+            if test_data_dir is None:
+                test_data_dir = Path("command_data")
+                
+            # Get all command folders
+            command_dirs = [d for d in test_data_dir.iterdir() if d.is_dir()]
+            
+            results = {
+                "timestamp": datetime.now().strftime("%Y%m%d_%H%M%S"),
+                "command_accuracy": {},
+                "confusion_matrix": {},
+                "raw_results": {},
+            }
+            
+            total_correct = 0
+            total_samples = 0
+            
+            self.current_operation = "Evaluating model accuracy..."
+            self.training_progress = 0
+            
+            for command_dir in command_dirs:
+                command_name = command_dir.name.replace('_', ' ').lower()
+                audio_files = list(command_dir.glob("*.wav"))
+                
+                if not audio_files:
+                    continue
+                    
+                correct = 0
+                results["confusion_matrix"][command_name] = {}
+                results["raw_results"][command_name] = []
+                
+                for i, audio_file in enumerate(audio_files):
+                    # Update progress
+                    progress = (total_samples / (len(command_dirs) * len(audio_files))) * 100
+                    self.training_progress = progress
+                    self.current_operation = f"Testing {command_name} ({i+1}/{len(audio_files)})"
+                    
+                    # Load and transcribe audio
+                    audio_data = self.load_audio_file(audio_file)
+                    if audio_data is None:
+                        continue
+                        
+                    transcription = self.transcribe_audio(audio_data)
+                    results["raw_results"][command_name].append(transcription)
+                    
+                    # Track results
+                    if transcription == command_name:
+                        correct += 1
+                        total_correct += 1
+                    
+                    # Update confusion matrix
+                    if transcription:
+                        if transcription not in results["confusion_matrix"][command_name]:
+                            results["confusion_matrix"][command_name][transcription] = 0
+                        results["confusion_matrix"][command_name][transcription] += 1
+                    else:
+                        # Handle unrecognized commands
+                        if "not_recognized" not in results["confusion_matrix"][command_name]:
+                            results["confusion_matrix"][command_name]["not_recognized"] = 0
+                        results["confusion_matrix"][command_name]["not_recognized"] += 1
+                    
+                    total_samples += 1
+                    
+                # Calculate accuracy for this command
+                accuracy = (correct / len(audio_files)) * 100
+                results["command_accuracy"][command_name] = accuracy
+            
+            # Calculate overall accuracy
+            if total_samples > 0:
+                results["overall_accuracy"] = (total_correct / total_samples) * 100
+            else:
+                results["overall_accuracy"] = 0
+            
+            # Save results
+            if save_results:
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                results_file = Path(f"accuracy_test_{timestamp}.json")
+                with open(results_file, "w") as f:
+                    json.dump(results, f, indent=2)
+                    
+                print(f"Saved accuracy results to {results_file}")
+            
+            self.current_operation = "Evaluation complete"
+            self.training_progress = 100
+            return results
+            
+        except Exception as e:
+            print(f"Error evaluating model: {e}")
+            self.current_operation = f"Error: {str(e)}"
+            return None
+            
+    def load_audio_file(self, file_path):
+        """Load audio file for evaluation"""
+        try:
+            return self.augmenter.load_audio(file_path)
+        except Exception as e:
+            print(f"Error loading audio file {file_path}: {e}")
             return None
 
     def get_progress(self):
