@@ -1,7 +1,16 @@
 # 🚀 VoxBeam: Control Your PC with Your Voice! 🎙️💻
 
 <!-- SHOWOFF: VoxBeam Demo Animation -->
-<!-- ![VoxBeam Demo Animation](link_to_voxbeam_demo.gif) -->
+![VoxBeam Demo Animation](assets/images/voxbeam_demo.gif)
+
+```ascii
+   🎤                    🧠                     ⚡
+[Input] -----> [Whisper Model] -----> [Command Action]
+   |              |    |               |
+   |              |    |               |
+   v              v    v               v
+[Audio] --> [Processing] --> [Match] --> [Execute]
+```
 
 Welcome to **VoxBeam** – the next-generation, AI-powered voice command platform for your computer. VoxBeam transforms your spoken words into powerful actions, letting you control your PC, launch apps, and automate workflows hands-free.
 
@@ -24,14 +33,26 @@ Welcome to **VoxBeam** – the next-generation, AI-powered voice command platfor
 
 ## 🎬 SHOWOFF: VoxBeam in Action
 
+```ascii
+Recording Mode Demo
+┌────────────────────────────────────┐
+│        🎙️ Record Command           │
+│ ┌────────────────────────────────┐ │
+│ │        [Start Recording]       │ │
+│ │     ▁▂▃▅▂▁▂▃▄▅▄▃▂▁▂▃▂▁        │ │
+│ │        [Stop Recording]        │ │
+│ └────────────────────────────────┘ │
+└────────────────────────────────────┘
+```
+
 - **VoxBeam in Action:**
-  <!-- ![VoxBeam Full Demo](link_to_full_demo.gif) -->
+  ![VoxBeam Full Demo](assets/images/full_demo.gif)
 - **Recording Mode:**
-  <!-- ![Recording Mode Animation](link_to_recording_mode.gif) -->
+  ![Recording Mode Animation](assets/images/recording_mode.gif)
 - **Training Mode:**
-  <!-- ![Training Mode Animation](link_to_training_mode.gif) -->
+  ![Training Mode Animation](assets/images/training_mode.gif)
 - **Testing Mode:**
-  <!-- ![Testing Mode Animation](link_to_testing_mode.gif) -->
+  ![Testing Mode Animation](assets/images/testing_mode.gif)
 
 ---
 
@@ -46,6 +67,26 @@ Welcome to **VoxBeam** – the next-generation, AI-powered voice command platfor
 ---
 
 ## 🧠 Model & Theory
+
+```ascii
+Whisper Model Pipeline
+   [Audio Input]
+        ↓
+   [Preprocessing]
+        ↓
+┌─────────────────┐
+│  Whisper Model  │
+│  ┌───────────┐  │
+│  │ Encoder   │  │
+│  └───────────┘  │
+│       ↓         │
+│  ┌───────────┐  │
+│  │ Decoder   │  │
+│  └───────────┘  │
+└─────────────────┘
+        ↓
+   [Text Output]
+```
 
 ### Model: OpenAI Whisper
 - **Architecture**: Transformer-based encoder-decoder, trained on 680k hours of multilingual and multitask supervised data.
@@ -78,6 +119,17 @@ Welcome to **VoxBeam** – the next-generation, AI-powered voice command platfor
 
 ## 🔁 Retraining & Transfer Learning
 
+```ascii
+Data Augmentation Pipeline
+Original Audio → [Pitch Shift] → [Speed Mod] → [Add Noise]
+     ↓              ↓              ↓             ↓
+     └──────────────────────┬─────────────────────
+                           ↓
+                    [Training Data]
+                           ↓
+                    [Whisper Model]
+```
+
 - **Retrain Anytime**: Add new commands or more samples, then retrain via the GUI.
 - **Transfer Learning**: While VoxBeam uses Whisper as a frozen base, you can extend it for full transfer learning (fine-tuning Whisper on your own data) with advanced scripts and more compute.
 - **Augmentation for Retraining**: Each retrain run generates new synthetic data, making the model more robust over time.
@@ -96,16 +148,36 @@ Welcome to **VoxBeam** – the next-generation, AI-powered voice command platfor
 
 ## 🛠️ System Architecture
 
+```ascii
+                     VoxBeam Architecture
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│  Recording   │     │   Training   │     │ Deployment   │
+│    Mode      │────>│    Mode      │────>│    Mode      │
+└──────────────┘     └──────────────┘     └──────────────┘
+       │                    │                    │
+       v                    v                    v
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Audio      │     │ Augmentation │     │  Real-time   │
+│  Samples     │────>│    Engine    │     │ Recognition  │
+└──────────────┘     └──────────────┘     └──────────────┘
+                           │                    │
+                           v                    v
+                    ┌──────────────┐     ┌──────────────┐
+                    │   Whisper    │     │   Command    │
+                    │   Model      │────>│  Execution   │
+                    └──────────────┘     └──────────────┘
+```
+
 1. 🎙️ **Voice Input** → 2. 🧹 **Preprocessing** → 3. 🧬 **Augmentation** → 4. 🤖 **Whisper STT** → 5. 🧩 **Command Matching** → 6. ⚙️ **Action Execution**
 
-<!-- SHOWOFF: Add a system diagram GIF or image here -->
+![System Architecture](assets/images/system_architecture.png)
 
 ---
 
 ## 📋 Requirements
 
 - **Python** 3.8+
-- **Windows** (other OS: core features portable)
+- **Windows** (other OS : core features portable)
 - **Microphone**
 - **NVIDIA GPU (CUDA)** (optional, for speed)
 
@@ -183,6 +255,16 @@ VoxBeam/
 ---
 
 ## 💡 Troubleshooting
+
+```ascii
+Common Issues Flowchart
+[Start] → No Audio? → Check Microphone
+   ↓          ↓           ↓
+No Model? → Train → Check GPU → CUDA OK?
+   ↓          ↓           ↓         ↓
+Low ACC? → More Samples → Retrain → [End]
+```
+
 - **No Trained Model?** Run Training Mode after recording.
 - **Low Accuracy?** Record more samples, speak clearly, use augmentation.
 - **CUDA Issues?** Check drivers and PyTorch install.
